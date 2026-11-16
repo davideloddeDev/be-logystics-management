@@ -19,7 +19,13 @@ const internalRoutes = require('./routes/internal.routes');
 const app = express();
 
 // Global Middlewares
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false,
+    upgradeInsecureRequests: null
+  })
+);
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -27,6 +33,11 @@ app.use(express.urlencoded({ extended: true }));
 if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('combined'));
 }
+
+// Redirect da root / a /api-docs
+app.get('/', (req, res) => {
+  res.redirect('/api-docs');
+});
 
 // Swagger API Documentation
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
