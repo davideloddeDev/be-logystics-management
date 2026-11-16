@@ -1,10 +1,14 @@
-const { describe, it } = require('node:test');
+const { describe, it, after } = require('node:test');
 const assert = require('node:assert/strict');
 const app = require('../../src/app');
 const config = require('../../src/config/env');
+const db = require('../../src/config/db');
 const { COMPANY_1, generateToken, request } = require('../helpers');
 
 describe('API Modules Functional Integration Tests', () => {
+  after(async () => {
+    await db.closePool();
+  });
   const token = generateToken({ companyId: COMPANY_1, role: 'owner' });
   const authHeaders = { Authorization: `Bearer ${token}` };
 
@@ -19,10 +23,10 @@ describe('API Modules Functional Integration Tests', () => {
     const res = await request(app, 'GET', '/api/dashboard/summary', { headers: authHeaders });
     assert.equal(res.status, 200);
     assert.equal(res.body.success, true);
-    assert.ok(res.body.data.counters !== undefined);
-    assert.ok(typeof res.body.data.counters.monthlyDeliveries === 'number');
+    assert.ok(res.body.data.overview !== undefined);
+    assert.ok(typeof res.body.data.overview.monthlyDeliveries === 'number');
     assert.ok(Array.isArray(res.body.data.recentDeliveries));
-    assert.ok(Array.isArray(res.body.data.statusBreakdown));
+    assert.ok(Array.isArray(res.body.data.deliveriesByStatus));
   });
 
   it('Collaboratori: CRUD /api/collaborators crea e recupera collaboratore', async () => {
@@ -31,10 +35,9 @@ describe('API Modules Functional Integration Tests', () => {
       last_name: 'Rossi',
       email: `mario.rossi.${Date.now()}@example.com`,
       phone: '+39 333 1234567',
-      role: 'driver',
-      status: 'active',
-      license_number: 'U1TEST1234X',
-      license_expiry: '2028-12-31'
+      role: 'autista',
+      status: 'attivo',
+      license_expiry_date: '2028-12-31'
     };
 
     // Creazione
@@ -66,11 +69,11 @@ describe('API Modules Functional Integration Tests', () => {
 
   it('Pagamenti: /api/payments e /summary registrano ed aggregano i pagamenti', async () => {
     const newPayment = {
-      title: 'Rifornimento Mezzo Test',
+      reference: 'Rifornimento Mezzo Test',
       amount: 150.50,
-      payment_type: 'vehicle',
+      type: 'mezzo',
       due_date: '2026-11-20',
-      status: 'pending'
+      status: 'da pagare'
     };
 
     const postRes = await request(app, 'POST', '/api/payments', {
@@ -84,17 +87,17 @@ describe('API Modules Functional Integration Tests', () => {
     // Segna come pagato
     const payRes = await request(app, 'PATCH', `/api/payments/${paymentId}/pay`, {
       headers: authHeaders,
-      body: { payment_method: 'credit_card', payment_date: '2026-11-16' }
+      body: { payment_method: 'carta' }
     });
     assert.equal(payRes.status, 200);
-    assert.equal(payRes.body.data.status, 'paid');
+    assert.equal(payRes.body.data.status, 'pagato');
 
     // Verifica aggregati
     const summaryRes = await request(app, 'GET', '/api/payments/summary', {
       headers: authHeaders
     });
     assert.equal(summaryRes.status, 200);
-    assert.ok(summaryRes.body.data.totalDue !== undefined);
+    assert.ok(summaryRes.body.data.total_expenses !== undefined);
   });
 
   it('Telemetria Pro: /api/telemetry/ingest accetta coordinate e /latest le mostra', async () => {
@@ -103,8 +106,7 @@ describe('API Modules Functional Integration Tests', () => {
       latitude: 45.4642,
       longitude: 9.1900,
       speed: 55.4,
-      engine_status: 'running',
-      fuel_battery_level: 82.0
+      engine_status: 'acceso'
     };
 
     const ingestRes = await request(app, 'POST', '/api/telemetry/ingest', {
@@ -132,6 +134,7 @@ describe('API Modules Functional Integration Tests', () => {
     });
     assert.equal(okRes.status, 200);
     assert.equal(okRes.body.success, true);
-    assert.equal(okRes.body.data.companyId, COMPANY_1);
+    assert.equal(okRes.body.company.id, COMPANY_1);
+    assert.ok(okRes.body.stats !== undefined);
   });
 });

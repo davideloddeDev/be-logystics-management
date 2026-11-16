@@ -223,5 +223,5 @@ Tutte le tabelle utilizzano `InnoDB`, codifica `utf8mb4_unicode_ci` e vincolo di
 - [x] **Implementazione Modulo Impostazioni (`/api/settings`)**: Profilo, notifiche, log e gestione accessi app mobile.
 - [x] **Implementazione Modulo Telemetria Pro (`/api/telemetry`)**: Ingestione, stato real-time e storico posizioni.
 - [x] **Implementazione Endpoint Interni (`/api/internal`)**: API per consultazioni controllate da servizi partner.
-- [ ] **Test Automatici**: Test unitari e di integrazione per isolamento multi-tenant e logiche di business.
-- [ ] **Collezione Postman**: File JSON esportato con variabili d'ambiente, token e richieste di test per tutti gli endpoint.
+- [x] **Test Automatici**: Test unitari e di integrazione per isolamento multi-tenant e logiche di business.
+- [x] **Collezione Postman**: File JSON esportato con variabili d'ambiente, token e richieste di test per tutti gli endpoint.

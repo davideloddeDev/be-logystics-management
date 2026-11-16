@@ -1,0 +1,969 @@
+{
+  "info": {
+    "name": "Logystics Management API",
+    "_postman_id": "b6e82845-e129-4d64-8899-73e488d55091",
+    "description": "Collezione completa di tutte le API gestionali ed operative di Logystics Management con autenticazione JWT e filtri multi-tenancy.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{jwt_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "jwt_token",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1MDAwMDAwMC0wMDAwLTAwMDAtMDAwMC0wMDAwMDAwMDAwMDEiLCJjb21wYW55SWQiOiJjMDAwMDAwMC0wMDAwLTAwMDAtMDAwMC0wMDAwMDAwMDAwMDEiLCJyb2xlIjoib3duZXIiLCJsaWNlbnNlVHlwZSI6InBybyIsImVtYWlsIjoiYWRtaW5AbG9neXN0aWNzLmNvbSIsImlhdCI6MTc5NDgyNDcwNiwiZXhwIjoxNzk3NDE2NzA2fQ.w9HZXIOKiUfOk6fRgc_qMVuw9m_CWu64N5rQltKZuKE",
+      "type": "string"
+    },
+    {
+      "key": "internal_token",
+      "value": "internal-secret-token-logystics-ai-auth",
+      "type": "string"
+    },
+    {
+      "key": "companyId",
+      "value": "c0000000-0000-0000-0000-000000000001",
+      "type": "string"
+    },
+    {
+      "key": "vehicleId",
+      "value": "v0000000-0000-0000-0000-000000000001",
+      "type": "string"
+    },
+    {
+      "key": "collaboratorId",
+      "value": "cl000000-0000-0000-0000-000000000001",
+      "type": "string"
+    },
+    {
+      "key": "deliveryId",
+      "value": "d0000000-0000-0000-0000-000000000001",
+      "type": "string"
+    },
+    {
+      "key": "paymentId",
+      "value": "p0000000-0000-0000-0000-000000000001",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "health"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Vehicles",
+      "item": [
+        {
+          "name": "Get All Vehicles",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/vehicles?status=attivo&type=furgone",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "vehicles"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "attivo"
+                },
+                {
+                  "key": "type",
+                  "value": "furgone"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Vehicle by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/vehicles/{{vehicleId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "vehicles",
+                "{{vehicleId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Vehicle",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plate\": \"GH890KL\",\n  \"model\": \"Iveco Daily 35S\",\n  \"type\": \"furgone\",\n  \"mileage\": 45000,\n  \"insurance_expiry\": \"2027-06-30\",\n  \"inspection_expiry\": \"2026-11-30\",\n  \"status\": \"attivo\",\n  \"load_capacity_kg\": 1400,\n  \"fuel_type\": \"diesel\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/vehicles",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "vehicles"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Vehicle",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mileage\": 48500,\n  \"status\": \"attivo\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/vehicles/{{vehicleId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "vehicles",
+                "{{vehicleId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Vehicle",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/vehicles/{{vehicleId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "vehicles",
+                "{{vehicleId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Collaborators",
+      "item": [
+        {
+          "name": "Get All Collaborators",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/collaborators?role=autista&status=attivo",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "collaborators"
+              ],
+              "query": [
+                {
+                  "key": "role",
+                  "value": "autista"
+                },
+                {
+                  "key": "status",
+                  "value": "attivo"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Collaborator by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/collaborators/{{collaboratorId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "collaborators",
+                "{{collaboratorId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Collaborator",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"first_name\": \"Giovanni\",\n  \"last_name\": \"Verdi\",\n  \"role\": \"autista\",\n  \"phone\": \"+39 349 9876543\",\n  \"email\": \"giovanni.verdi@example.com\",\n  \"status\": \"attivo\",\n  \"license_expiry_date\": \"2029-01-10\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/collaborators",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "collaborators"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Collaborator",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone\": \"+39 349 0000000\",\n  \"status\": \"attivo\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/collaborators/{{collaboratorId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "collaborators",
+                "{{collaboratorId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Collaborator",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/collaborators/{{collaboratorId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "collaborators",
+                "{{collaboratorId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Deliveries",
+      "item": [
+        {
+          "name": "Get All Deliveries",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/deliveries?status=in attesa",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deliveries"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "in attesa"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Delivery by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/deliveries/{{deliveryId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deliveries",
+                "{{deliveryId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Delivery",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"DEL-2026-9999\",\n  \"customer_name\": \"Tech Store Srl\",\n  \"customer_address\": \"Via Garibaldi 10, Milano\",\n  \"vehicle_id\": \"{{vehicleId}}\",\n  \"driver_id\": \"{{collaboratorId}}\",\n  \"delivery_datetime\": \"2026-11-20 10:00:00\",\n  \"status\": \"in attesa\",\n  \"notes\": \"Consegnare al piano terra\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/deliveries",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deliveries"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Delivery Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"in transito\",\n  \"notes\": \"Partito dal magazzino centrale\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/deliveries/{{deliveryId}}/status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deliveries",
+                "{{deliveryId}}",
+                "status"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Delivery",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"notes\": \"Citofonare ufficio logistica\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/deliveries/{{deliveryId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deliveries",
+                "{{deliveryId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Delivery",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/deliveries/{{deliveryId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deliveries",
+                "{{deliveryId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payments",
+      "item": [
+        {
+          "name": "Get All Payments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/payments?type=mezzo&status=da pagare",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "payments"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "mezzo"
+                },
+                {
+                  "key": "status",
+                  "value": "da pagare"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Financial Summary",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/payments/summary",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "payments",
+                "summary"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Payment by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/payments/{{paymentId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "payments",
+                "{{paymentId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Payment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"attrezzatura\",\n  \"reference\": \"Fattura #402 - Transpallet\",\n  \"description\": \"Transpallet manuale 2500kg\",\n  \"amount\": 320,\n  \"due_date\": \"2026-12-15\",\n  \"status\": \"da pagare\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/payments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "payments"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Mark Payment as Paid",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"payment_method\": \"bonifico\",\n  \"paid_at\": \"2026-11-16T10:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/payments/{{paymentId}}/pay",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "payments",
+                "{{paymentId}}",
+                "pay"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Payment",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": 310\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/payments/{{paymentId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "payments",
+                "{{paymentId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Payment",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/payments/{{paymentId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "payments",
+                "{{paymentId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "item": [
+        {
+          "name": "Get Dashboard Summary",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/dashboard/summary",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "dashboard",
+                "summary"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Settings",
+      "item": [
+        {
+          "name": "Get Company Profile",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/settings/profile",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "settings",
+                "profile"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Company Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone\": \"+39 02 99998888\",\n  \"address\": \"Via Nuova 100, Milano\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/settings/profile",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "settings",
+                "profile"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Notification Settings",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/settings/notifications",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "settings",
+                "notifications"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Notification Settings",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email_notifications\": true,\n  \"sms_notifications\": false,\n  \"notify_delivery_status\": true,\n  \"notify_maintenance_expiry\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/settings/notifications",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "settings",
+                "notifications"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Mobile Access List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/settings/mobile-access",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "settings",
+                "mobile-access"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Toggle Mobile Access for Collaborator",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"enabled\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/settings/mobile-access/{{collaboratorId}}/toggle",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "settings",
+                "mobile-access",
+                "{{collaboratorId}}",
+                "toggle"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get System Logs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/settings/system-logs?limit=50",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "settings",
+                "system-logs"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "50"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Telemetry Pro",
+      "item": [
+        {
+          "name": "Ingest Telemetry",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vehicle_id\": \"{{vehicleId}}\",\n  \"latitude\": 45.4642,\n  \"longitude\": 9.19,\n  \"address\": \"Piazza del Duomo, Milano\",\n  \"speed\": 52.3,\n  \"engine_status\": \"acceso\",\n  \"available_load_kg\": 850,\n  \"total_load_kg\": 550,\n  \"tare_kg\": 2100,\n  \"compartment_temperature\": 4.2,\n  \"estimated_autonomy_km\": 420\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/telemetry/ingest",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "telemetry",
+                "ingest"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Vehicles Latest Telemetry",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/telemetry/vehicles/latest",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "telemetry",
+                "vehicles",
+                "latest"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Vehicle Telemetry History",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/telemetry/vehicles/{{vehicleId}}/history?limit=100",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "telemetry",
+                "vehicles",
+                "{{vehicleId}}",
+                "history"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "100"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Internal (Service-to-Service)",
+      "item": [
+        {
+          "name": "Get Company Stats (Internal)",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Internal-Token",
+                "value": "{{internal_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/internal/companies/{{companyId}}/stats",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "internal",
+                "companies",
+                "{{companyId}}",
+                "stats"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Query Company Semantic Context (AI Service)",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Internal-Token",
+                "value": "{{internal_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/internal/companies/{{companyId}}/query?q=autista&type=collaborators",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "internal",
+                "companies",
+                "{{companyId}}",
+                "query"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "autista"
+                },
+                {
+                  "key": "type",
+                  "value": "collaborators"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
