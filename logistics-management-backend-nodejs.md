@@ -1,6 +1,6 @@
 # Backend principale — Node.js + MySQL
 
-# Hekolo -- Piano di sviluppo backend
+# logystics-management -- Piano di sviluppo backend
 
 > Documento di lavoro: architettura, API e task di sviluppo.\
 > Stato: prima bozza da validare. Le decisioni ancora aperte sono
@@ -8,7 +8,7 @@
 
 ## 1. Obiettivo e perimetro
 
-Realizzare il backend del gestionale Hekolo per aziende di logistica,
+Realizzare il backend del gestionale Logystics Management per aziende di logistica,
 mantenendo il frontend web esistente e l'app mobile Flutter per gli
 autisti.
 
