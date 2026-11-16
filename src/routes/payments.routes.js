@@ -106,7 +106,7 @@ router.get('/summary', paymentsController.getFinancialSummary);
  */
 router.get(
   '/:id',
-  [param('id').isUUID().withMessage('ID pagamento non valido'), validate],
+  [param('id').isString().notEmpty().withMessage('ID pagamento non valido'), validate],
   paymentsController.getPaymentById
 );
 
@@ -219,7 +219,7 @@ router.put(
   '/:id',
   authorize('owner', 'admin'),
   [
-    param('id').isUUID().withMessage('ID pagamento non valido'),
+    param('id').isString().notEmpty().withMessage('ID pagamento non valido'),
     body('type').optional().isIn(['stipendio', 'mezzo', 'attrezzatura', 'entrata']).withMessage('Tipo pagamento non valido'),
     body('amount').optional().isFloat({ min: 0 }).withMessage('Importo non valido'),
     body('due_date').optional().isISO8601().withMessage('Data scadenza non valida'),
@@ -268,7 +268,7 @@ router.patch(
   '/:id/pay',
   authorize('owner', 'admin'),
   [
-    param('id').isUUID().withMessage('ID pagamento non valido'),
+    param('id').isString().notEmpty().withMessage('ID pagamento non valido'),
     body('payment_method').isIn(['bonifico', 'carta', 'contanti', 'assegno']).withMessage('Metodo di pagamento obbligatorio e valido'),
     body('paid_at').optional().isISO8601().withMessage('Data pagamento non valida'),
     validate
@@ -299,7 +299,7 @@ router.patch(
 router.delete(
   '/:id',
   authorize('owner', 'admin'),
-  [param('id').isUUID().withMessage('ID pagamento non valido'), validate],
+  [param('id').isString().notEmpty().withMessage('ID pagamento non valido'), validate],
   paymentsController.deletePayment
 );
 

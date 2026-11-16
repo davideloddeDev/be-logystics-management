@@ -207,21 +207,21 @@ Tutte le tabelle utilizzano `InnoDB`, codifica `utf8mb4_unicode_ci` e vincolo di
 
 ## 7. Task di sviluppo del Backend Node.js
 
-- [ ] **Setup & Configurazione**: Inizializzazione progetto, configurazione Express, Helmet, Cors, logger e gestione variabili d'ambiente.
-- [ ] **Database & Migrazioni**: Connessione MySQL tramite pool, script DDL `schema.sql`, migratore e seeder con dati realistici.
-- [ ] **Middleware di Base**:
-  - [ ] Middleware di autenticazione e validazione JWT (`authenticate`).
-  - [ ] Middleware di autorizzazione ruoli (`authorize`).
-  - [ ] Middleware per validazione input con `express-validator`.
-  - [ ] Middleware globale di gestione errori e formattazione standard.
-- [ ] **Documentazione Swagger**: Configurazione `swagger-ui-express` e `swagger-jsdoc` montata su `/api-docs`.
-- [ ] **Implementazione Modulo Mezzi (`/api/vehicles`)**: Route, Controller, Service e Repository.
-- [ ] **Implementazione Modulo Collaboratori (`/api/collaborators`)**: Route, Controller, Service e Repository.
-- [ ] **Implementazione Modulo Consegne (`/api/deliveries`)**: Route, Controller, Service, Repository e storico stati.
-- [ ] **Implementazione Modulo Pagamenti (`/api/payments`)**: Route, Controller, Service, Repository e aggregati.
-- [ ] **Implementazione Modulo Dashboard (`/api/dashboard`)**: Query aggregate ad alte prestazioni per KPI, grafici e riepiloghi.
-- [ ] **Implementazione Modulo Impostazioni (`/api/settings`)**: Profilo, notifiche, log e gestione accessi app mobile.
-- [ ] **Implementazione Modulo Telemetria Pro (`/api/telemetry`)**: Ingestione, stato real-time e storico posizioni.
-- [ ] **Implementazione Endpoint Interni (`/api/internal`)**: API per consultazioni controllate da servizi partner.
+- [x] **Setup & Configurazione**: Inizializzazione progetto, configurazione Express, Helmet, Cors, logger e gestione variabili d'ambiente.
+- [x] **Database & Migrazioni**: Connessione MySQL tramite pool, script DDL `schema.sql`, migratore e seeder con dati realistici.
+- [x] **Middleware di Base**:
+  - [x] Middleware di autenticazione e validazione JWT (`authenticate`).
+  - [x] Middleware di autorizzazione ruoli (`authorize`).
+  - [x] Middleware per validazione input con `express-validator`.
+  - [x] Middleware globale di gestione errori e formattazione standard.
+- [x] **Documentazione Swagger**: Configurazione `swagger-ui-express` e `swagger-jsdoc` montata su `/api-docs`.
+- [x] **Implementazione Modulo Mezzi (`/api/vehicles`)**: Route, Controller, Service e Repository.
+- [x] **Implementazione Modulo Collaboratori (`/api/collaborators`)**: Route, Controller, Service e Repository.
+- [x] **Implementazione Modulo Consegne (`/api/deliveries`)**: Route, Controller, Service, Repository e storico stati.
+- [x] **Implementazione Modulo Pagamenti (`/api/payments`)**: Route, Controller, Service, Repository e aggregati.
+- [x] **Implementazione Modulo Dashboard (`/api/dashboard`)**: Query aggregate ad alte prestazioni per KPI, grafici e riepiloghi.
+- [x] **Implementazione Modulo Impostazioni (`/api/settings`)**: Profilo, notifiche, log e gestione accessi app mobile.
+- [x] **Implementazione Modulo Telemetria Pro (`/api/telemetry`)**: Ingestione, stato real-time e storico posizioni.
+- [x] **Implementazione Endpoint Interni (`/api/internal`)**: API per consultazioni controllate da servizi partner.
 - [ ] **Test Automatici**: Test unitari e di integrazione per isolamento multi-tenant e logiche di business.
 - [ ] **Collezione Postman**: File JSON esportato con variabili d'ambiente, token e richieste di test per tutti gli endpoint.

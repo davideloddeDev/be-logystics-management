@@ -165,7 +165,7 @@ router.get('/mobile-access', authorize('owner', 'admin'), settingsController.get
 router.post(
   '/mobile-access/:collaboratorId/toggle',
   authorize('owner', 'admin'),
-  [param('collaboratorId').isUUID().withMessage('ID collaboratore non valido'), validate],
+  [param('collaboratorId').isString().notEmpty().withMessage('ID collaboratore non valido'), validate],
   settingsController.toggleMobileAccess
 );
 

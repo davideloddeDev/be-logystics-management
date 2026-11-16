@@ -85,7 +85,7 @@ function requireProLicense(req, res, next) {
 router.post(
   '/ingest',
   [
-    body('vehicle_id').isUUID().withMessage('ID veicolo non valido'),
+    body('vehicle_id').isString().notEmpty().withMessage('ID veicolo non valido'),
     body('latitude').isFloat({ min: -90, max: 90 }).withMessage('Latitudine non valida (-90 a +90)'),
     body('longitude').isFloat({ min: -180, max: 180 }).withMessage('Longitudine non valida (-180 a +180)'),
     body('speed').optional().isFloat({ min: 0 }).withMessage('Velocità deve essere positiva'),
@@ -144,7 +144,7 @@ router.get(
   '/vehicles/:vehicleId/history',
   requireProLicense,
   [
-    param('vehicleId').isUUID().withMessage('ID veicolo non valido'),
+    param('vehicleId').isString().notEmpty().withMessage('ID veicolo non valido'),
     query('from_date').optional().isISO8601().withMessage('Data inizio non valida'),
     query('to_date').optional().isISO8601().withMessage('Data fine non valida'),
     validate

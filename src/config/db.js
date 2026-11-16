@@ -32,8 +32,16 @@ async function withTransaction(callback) {
   }
 }
 
+async function closePool() {
+  if (pool) {
+    await pool.end();
+    pool = null;
+  }
+}
+
 module.exports = {
   getPool,
   query,
-  withTransaction
+  withTransaction,
+  closePool
 };

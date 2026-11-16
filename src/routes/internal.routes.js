@@ -51,7 +51,7 @@ router.use(verifyInternalToken);
  */
 router.get(
   '/companies/:companyId/stats',
-  [param('companyId').isUUID().withMessage('ID azienda non valido'), validate],
+  [param('companyId').isString().notEmpty().withMessage('ID azienda non valido'), validate],
   internalController.getCompanyStats
 );
 
@@ -95,7 +95,7 @@ router.get(
 router.get(
   '/companies/:companyId/query',
   [
-    param('companyId').isUUID().withMessage('ID azienda non valido'),
+    param('companyId').isString().notEmpty().withMessage('ID azienda non valido'),
     query('entity').isIn(['vehicles', 'collaborators', 'deliveries', 'payments']).withMessage('Entità non valida'),
     query('limit').optional().isInt({ min: 1, max: 100 }),
     validate
